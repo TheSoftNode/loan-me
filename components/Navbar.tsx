@@ -9,6 +9,13 @@ const Navbar = () =>
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const navs = [
+        { name: 'Home', path: '/' },
+        { name: 'About', path: '/about' },
+        { name: 'Products', path: '/products' },
+        { name: 'Contact', path: '/contact' }
+    ];
+
     return (
         <nav className="fixed w-full top-0 z-50 bg-gradient-to-r from-cyan-500/90 to-teal-500/90 backdrop-blur-md">
             <div className="container mx-auto px-4">
@@ -31,15 +38,15 @@ const Navbar = () =>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex space-x-8">
-                        {['Home', 'About', 'Products', 'Contact'].map((item) => (
+                        {navs.map((item) => (
                             <motion.a
-                                key={item}
-                                href="#"
+                                key={item.name}
+                                href={item.path}
                                 className="text-white relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-lg px-2 py-1"
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                {item}
+                                {item.name}
                                 <motion.span
                                     className="absolute bottom-0 left-0 w-full h-0.5 bg-white/90 rounded-full"
                                     initial={{ scaleX: 0 }}

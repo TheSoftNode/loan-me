@@ -1,4 +1,5 @@
 import { ArrowRight, Clock, DollarSign, Shield } from "lucide-react";
+import Link from "next/link";
 
 export default function Home()
 {
@@ -15,7 +16,9 @@ export default function Home()
               Fast, secure, and hassle-free loans at your fingertips
             </p>
             <button className="w-full sm:w-auto bg-white text-teal-600 px-6 sm:px-8 py-3 rounded-full font-semibold flex items-center justify-center mx-auto hover:bg-cyan-50 transition-colors">
-              Get Started
+              <Link href={"/Dashboard"}>
+                Get Started
+              </Link>
               <ArrowRight className="ml-2 h-5 w-5" />
             </button>
           </div>
