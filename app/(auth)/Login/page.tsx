@@ -105,11 +105,9 @@ const LoginPage: React.FC = () =>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 gap-3">
                             {[
                                 { Icon: FaGoogle, label: 'Google' },
-                                { Icon: FaGithub, label: 'GitHub' },
-                                { Icon: FaFacebookF, label: 'Facebook' }
                             ].map(({ Icon, label }: SocialButtonProps) => (
                                 <button
                                     key={label}
