@@ -32,7 +32,7 @@ const RegisterPage: React.FC = () =>
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-cyan-500 via-teal-500 to-purple-600 flex items-center justify-center p-4">
+        <div className="min-h-screen pt-14 bg-gradient-to-br from-cyan-500 via-teal-500 to-purple-600 flex items-center justify-center p-4">
             <div className="w-full max-w-md">
                 <div className="bg-gradient-to-br from-white/20 to-purple-400/20 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-white/10">
                     <h2 className="text-3xl font-bold text-white mb-6 text-center">Create Account</h2>

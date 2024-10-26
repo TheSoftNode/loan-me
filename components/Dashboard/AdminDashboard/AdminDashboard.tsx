@@ -406,7 +406,7 @@ const AdminDashboard = () =>
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4">
+        <div className="min-h-screen bg-gray-50 p-4 pt-12">
             {/* Top Navigation */}
             <div className="flex flex-wrap gap-4 mb-6">
                 {['overview', 'users', 'loans', 'reports'].map((tab) => (
