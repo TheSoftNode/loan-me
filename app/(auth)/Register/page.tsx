@@ -92,20 +92,6 @@ const RegisterPage: React.FC = () =>
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-cyan-50 text-sm">ID Verification</label>
-                            <div className="relative">
-                                <button
-                                    type="button"
-                                    className="w-full bg-white/10 border border-white/20 border-dashed rounded-lg px-4 py-4 text-cyan-50 hover:bg-white/20 transition-colors flex flex-col items-center gap-2"
-                                >
-                                    <Upload className="h-6 w-6" />
-                                    <span>Upload ID Document</span>
-                                    <span className="text-xs text-white/50">Supported: PDF, JPG, PNG (max 5MB)</span>
-                                </button>
-                            </div>
-                        </div>
-
                         <div className="flex items-start space-x-2 text-sm">
                             <input type="checkbox" name="termsAccepted" className="mt-1" />
                             <label className="text-cyan-50">
