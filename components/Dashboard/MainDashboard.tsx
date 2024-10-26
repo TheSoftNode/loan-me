@@ -7,7 +7,6 @@ import
     Bell,
     CreditCard,
     DollarSign,
-    Calendar,
     ArrowUpRight,
     ArrowDownRight,
     PlusCircle,
@@ -84,9 +83,9 @@ const MainDashboard: React.FC<DashboardProps> = ({
     ];
 
     // Get next payment info
-    const nextPayment = loans
-        .filter(loan => loan.status === 'active')
-        .sort((a, b) => new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime())[0];
+    // const nextPayment = loans
+    //     .filter(loan => loan.status === 'active')
+    //     .sort((a, b) => new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime())[0];
 
     return (
         <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
@@ -94,7 +93,7 @@ const MainDashboard: React.FC<DashboardProps> = ({
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Welcome back, {userData.name}</h1>
-                    <p className="text-gray-500">Here's your financial overview</p>
+                    <p className="text-gray-500">Here&apos;s your financial overview</p>
                 </div>
                 <Button className="bg-blue-600 hover:bg-blue-700">
                     <Link href={"/LoanApplication"} className='flex'>

@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, MessageSquare, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export function ContactPage() {
+function ContactPage() {
   const [formStatus, setFormStatus] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -45,7 +45,7 @@ export function ContactPage() {
             <h1 className="text-4xl md:text-6xl font-bold text-transparent mb-6">Contact Us</h1>
           </div>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions? We're here to help. Reach out to us through any of the channels below.
+            Have questions? We&apos;re here to help. Reach out to us through any of the channels below.
           </p>
         </div>
 

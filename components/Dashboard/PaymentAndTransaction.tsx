@@ -36,7 +36,6 @@ import
 } from "@/components/ui/alert-dialog";
 import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -49,8 +48,7 @@ import
     Search,
     Download,
     Filter,
-    ChevronDown,
-    CheckCircle2
+    CheckCircle2,
 } from 'lucide-react';
 
 // Types

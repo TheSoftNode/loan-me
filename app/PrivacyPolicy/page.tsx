@@ -96,7 +96,7 @@ const PrivacyPolicyPage = () =>
                         <section>
                             <h2 className="text-2xl font-semibold mb-4 text-gray-800">1. Introduction</h2>
                             <p className="mb-4">
-                                This Privacy Policy explains how LoanMe ("we," "our," or "us") collects, uses, shares, and protects your personal information when you use our website, mobile applications, and services.
+                                This Privacy Policy explains how LoanMe (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) collects, uses, shares, and protects your personal information when you use our website, mobile applications, and services.
                             </p>
                         </section>
 

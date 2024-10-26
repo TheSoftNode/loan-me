@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import
 {
@@ -27,7 +26,7 @@ import
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Clock, CalendarDays, DollarSign, AlertCircle, CheckCircle2, XCircle } from 'lucide-react';
+import { Clock, CheckCircle2, XCircle } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
 const LoanManagementDashboard = () =>

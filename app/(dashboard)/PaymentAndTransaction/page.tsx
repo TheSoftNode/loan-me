@@ -1,9 +1,7 @@
 import PaymentAndTransaction from '@/components/Dashboard/PaymentAndTransaction'
 import React from 'react'
 
-type Props = {}
-
-const page = (props: Props) =>
+const page = () =>
 {
     return (
         <div>

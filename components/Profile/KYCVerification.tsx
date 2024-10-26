@@ -6,7 +6,6 @@ import { Progress } from "../ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertTriangle, Camera, FileText, Upload } from "lucide-react";
 import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 
 interface Document
 {

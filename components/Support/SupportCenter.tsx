@@ -21,7 +21,6 @@ const SupportCenter = () =>
 {
     // State management
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('all');
     const [feedbackForm, setFeedbackForm] = useState<FeedbackFormData>({
         rating: 0,
         category: '',
@@ -65,12 +64,12 @@ const SupportCenter = () =>
     ];
 
     // Filter FAQs based on search query
-    const filteredFAQs = faqCategories.flatMap(category =>
-        category.questions.filter(faq =>
-            faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    );
+    // const filteredFAQs = faqCategories.flatMap(category =>
+    //     category.questions.filter(faq =>
+    //         faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+    //     )
+    // );
 
     // Handler for feedback submission
     const handleFeedbackSubmit = (e: React.FormEvent) =>

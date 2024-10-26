@@ -1,11 +1,11 @@
 "use client"
 
 import React from 'react';
-import { Building2, Users2, Target, Mail, Phone, MapPin, ArrowRight, MessageSquare } from 'lucide-react';
+import { Building2, Users2, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
 
-export function AboutPage()
+function AboutPage()
 {
     const stats = [
         { number: "10K+", label: "Active Users" },

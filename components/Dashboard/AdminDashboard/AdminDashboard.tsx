@@ -21,7 +21,6 @@ const AdminDashboard = () =>
     const [searchTerm, setSearchTerm] = useState('');
     const [timeRange, setTimeRange] = useState('1M');
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedFilter, setSelectedFilter] = useState('all');
 
     // Simulated data for different tabs
     const overviewData = {

@@ -3,8 +3,6 @@
 import LoanApplication from '@/components/LoanApplication/LoanApplication';
 import React from 'react';
 
-type Props = {};
-
 export interface LoanType
 {
     id: string;
@@ -19,9 +17,33 @@ export interface LoanType
     features: string[];
 }
 
+// Define a proper type for the application data
+export interface LoanApplicationData
+{
+    loanTypeId: string;
+    amount: number;
+    term: number;
+    personalInfo: {
+        fullName: string;
+        email: string;
+        phone: string;
+        address: string;
+    };
+    employmentInfo: {
+        employerName: string;
+        monthlyIncome: number;
+        employmentDuration: number;
+    };
+    documents: {
+        proofOfIncome: boolean;
+        identityDocument: boolean;
+        additionalDocuments?: string[];
+    };
+}
+
 type LoanApplicationProps = {
     loanTypes: LoanType[];
-    onSubmit: (applicationData: any) => void;
+    onSubmit: (applicationData: LoanApplicationData) => void;
 };
 
 // Mock data for LoanType
@@ -52,17 +74,17 @@ const LoanData: LoanApplicationProps = {
             features: ['Flexible repayment', 'Lower rates for long-term'],
         },
     ],
-    onSubmit: (applicationData: any) =>
+    onSubmit: (applicationData: LoanApplicationData) =>
     {
         console.log("Application Submitted:", applicationData);
         // Additional processing logic can be added here
     },
 };
 
-function Page({ }: Props)
+function Page(): React.ReactElement
 {
     return (
-        <div>
+        <div className="container mx-auto px-4 py-8">
             <LoanApplication {...LoanData} />
         </div>
     );

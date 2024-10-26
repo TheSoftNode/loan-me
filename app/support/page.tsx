@@ -1,12 +1,11 @@
 import SupportCenter from '@/components/Support/SupportCenter'
 import React from 'react'
 
-type Props = {}
-
-function page({}: Props) {
+function page()
+{
   return (
     <div>
-        <SupportCenter />
+      <SupportCenter />
     </div>
   )
 }

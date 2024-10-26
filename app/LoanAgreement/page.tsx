@@ -70,10 +70,10 @@ const LoanAgreementPage = () =>
                             In this Agreement, unless the context otherwise requires:
                         </p>
                         <ul className="list-disc pl-6 space-y-2 text-gray-600">
-                            <li>"Lender" refers to LoanMe, its successors and assigns</li>
-                            <li>"Borrower" refers to the individual or entity receiving the loan</li>
-                            <li>"Loan" refers to the principal amount borrowed plus any accrued interest</li>
-                            <li>"Payment Date" refers to the scheduled date for loan repayment installments</li>
+                            <li>&ldquo;Lender&rdquo; refers to LoanMe, its successors and assigns</li>
+                            <li>&ldquo;Borrower&rdquo; refers to the individual or entity receiving the loan</li>
+                            <li>&ldquo;Loan&rdquo; refers to the principal amount borrowed plus any accrued interest</li>
+                            <li>&ldquo;Payment Date&rdquo; refers to the scheduled date for loan repayment installments</li>
                         </ul>
                     </section>
 
@@ -82,7 +82,7 @@ const LoanAgreementPage = () =>
                         <div className="space-y-4">
                             <h3 className="text-xl font-medium text-gray-800">2.1 Principal Amount</h3>
                             <p className="text-gray-600">
-                                The principal amount of the loan shall be as specified in the loan approval documentation. This amount will be disbursed to the Borrower's designated bank account upon completion of all required documentation and approvals.
+                                The principal amount of the loan shall be as specified in the loan approval documentation. This amount will be disbursed to the Borrower&apos;s designated bank account upon completion of all required documentation and approvals.
                             </p>
 
                             <h3 className="text-xl font-medium text-gray-800">2.2 Interest Rate</h3>

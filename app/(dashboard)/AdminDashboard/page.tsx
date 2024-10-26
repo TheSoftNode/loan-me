@@ -1,9 +1,8 @@
 import AdminDashboard from '@/components/Dashboard/AdminDashboard/AdminDashboard'
 import React from 'react'
 
-type Props = {}
 
-function page({ }: Props)
+function page()
 {
     return (
         <div>

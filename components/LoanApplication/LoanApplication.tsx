@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import
-    {
-        AlertDialog,
-        AlertDialogAction,
-        AlertDialogCancel,
-        AlertDialogContent,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogHeader,
-        AlertDialogTitle,
-    } from "@/components/ui/alert-dialog";
+{
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { FormDataType, LoanType } from '@/type';
 import { useToast } from '@/hooks/use-toast';
 import { ProgressTracker } from './ProgressTracker';
