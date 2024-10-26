@@ -97,8 +97,8 @@ const MainDashboard: React.FC<DashboardProps> = ({
                     <p className="text-gray-500">Here's your financial overview</p>
                 </div>
                 <Button className="bg-blue-600 hover:bg-blue-700">
-                    <Link href={"/LoanApplication"}>
-                        <PlusCircle className="mr-2 h-4 w-4" />
+                    <Link href={"/LoanApplication"} className='flex'>
+                        <PlusCircle className="mr-2 h-4 w-4 mt-1" />
                         Apply for New Loan
                     </Link>
 

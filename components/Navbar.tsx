@@ -26,13 +26,14 @@ const Navbar = () =>
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <motion.div
+                        <motion.a
+                            href={"/"}
                             className="bg-white rounded-full w-8 h-8 flex items-center justify-center"
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                         >
                             <span className="text-teal-600 font-bold text-xl">L</span>
-                        </motion.div>
+                        </motion.a>
                         <span className="text-2xl font-bold text-white">LoanMe</span>
                     </motion.div>
 
@@ -110,15 +111,15 @@ const Navbar = () =>
                     style={{ overflow: 'hidden' }}
                 >
                     <div className="px-4 py-2 space-y-3">
-                        {['Home', 'About', 'Products', 'Contact'].map((item) => (
+                        {navs.map((item) => (
                             <motion.a
-                                key={item}
-                                href="#"
+                                key={item.name}
+                                href={item.path}
                                 className="block text-white relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-lg px-2 py-1"
                                 whileHover={{ x: 8 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                {item}
+                                {item.name}
                                 <motion.span
                                     className="absolute bottom-0 left-0 w-full h-0.5 bg-white/90"
                                     initial={{ scaleX: 0 }}
@@ -151,7 +152,7 @@ const Navbar = () =>
                     </div>
                 </motion.div>
             </div>
-        </nav>
+        </nav >
     );
 };
 
