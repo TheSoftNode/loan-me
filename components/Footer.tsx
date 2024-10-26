@@ -91,7 +91,7 @@ const Footer = () =>
                             © 2024 LoanMe. All rights reserved.
                         </p>
                         <div className="flex justify-center md:justify-end space-x-6">
-                            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                            <a href="/PrivacyPolicy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
                             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
                             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Loan Agreement</a>
                         </div>
