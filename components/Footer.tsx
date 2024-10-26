@@ -43,8 +43,8 @@ const Footer = () =>
                             <li><a href="#" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
                             <li><a href="#" className="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
                             <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Loan Products</a></li>
-                            <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href={"/support"} className="text-gray-300 hover:text-white transition-colors">Blog</a></li>
+                            <li><a href="/Support" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                            <li><a href={"/Blog"} className="text-gray-300 hover:text-white transition-colors">Blog</a></li>
                         </ul>
                     </div>
 
@@ -92,8 +92,8 @@ const Footer = () =>
                         </p>
                         <div className="flex justify-center md:justify-end space-x-6">
                             <a href="/PrivacyPolicy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-                            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-                            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Loan Agreement</a>
+                            <a href="/TermsOfService" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                            <a href="/LoanAgreement" className="text-gray-400 hover:text-white text-sm transition-colors">Loan Agreement</a>
                         </div>
                     </div>
                 </div>
