@@ -1,3 +1,4 @@
+"use client"
 import KYCVerification from "@/components/Profile/KYCVerification";
 import NotificationSettings from "@/components/Profile/NotificationSettings";
 import PersonalInformation from "@/components/Profile/PersonalInformation";
@@ -32,7 +33,7 @@ const ProfilePage = () =>
 
             <div className="mt-20">
                 <Tabs defaultValue="personal" className="space-y-6">
-                    <TabsList className="grid w-full grid-cols-4">
+                    <TabsList className="grid w-full sm:grid-cols-3 h-auto gap-2 md:grid-cols-4">
                         <TabsTrigger value="personal">
                             <User className="mr-2 h-4 w-4" />
                             Personal

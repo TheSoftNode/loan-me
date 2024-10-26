@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
@@ -7,7 +8,8 @@ import { Eye, EyeOff, Smartphone } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Switch } from "../ui/switch";
 
-const SecuritySettings = () => {
+const SecuritySettings = () =>
+{
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [is2FAEnabled, setIs2FAEnabled] = useState(false);

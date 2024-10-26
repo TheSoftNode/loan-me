@@ -26,3 +26,27 @@ export interface FormDataType
     address?: string;
     creditScore?: string;
 }
+
+import { ReactElement } from 'react';
+
+export interface FAQ
+{
+    id: string;
+    question: string;
+    answer: string;
+}
+
+export interface FAQCategory
+{
+    id: string;
+    name: string;
+    icon: ReactElement;
+    questions: FAQ[];
+}
+
+export interface FeedbackFormData
+{
+    rating: number;
+    category: string;
+    comment: string;
+}
