@@ -114,7 +114,7 @@ const MainDashboard: React.FC<DashboardProps> = ({
     //     .sort((a, b) => new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime())[0];
 
     return (
-        <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
+        <div className="px-6 py-10 space-y-6 bg-gray-50 min-h-screen">
             {/* Header Section */}
             <div className="flex justify-between items-center">
                 <div>
