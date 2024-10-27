@@ -3,9 +3,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { FormDataType, LoanType } from '@/type';
+import { FormDataType, LoanType } from '@/lib/type';
 
-interface ReviewApplicationProps {
+interface ReviewApplicationProps
+{
   selectedLoan: LoanType;
   formData: FormDataType;
   onBack: () => void;
@@ -49,7 +50,7 @@ export const ReviewApplication: React.FC<ReviewApplicationProps> = ({
                 <span className="font-medium">{formData.term} months</span>
               </div>
               <div className="flex justify-between">
-              <span className="text-gray-500">Interest Rate</span>
+                <span className="text-gray-500">Interest Rate</span>
                 <span className="font-medium">{selectedLoan.baseRate}% APR</span>
               </div>
             </div>
@@ -120,4 +121,3 @@ export const ReviewApplication: React.FC<ReviewApplicationProps> = ({
     </CardFooter>
   </Card>
 );
-                

@@ -8,7 +8,7 @@ import
     TabsList,
     TabsTrigger,
 } from '@/components/ui/tabs';
-import { FAQ, FAQCategory, FeedbackFormData } from '@/type';
+import { FAQ, FAQCategory, FeedbackFormData } from '@/lib/type';
 import FAQSearch from './FAQSearch';
 import FAQCategoryCard from './FAQCategoryCard';
 import ContactMethods from './ContactMethods';

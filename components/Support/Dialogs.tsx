@@ -1,14 +1,16 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
+import
+    {
+        Dialog,
+        DialogContent,
+        DialogDescription,
+        DialogHeader,
+        DialogTitle,
+    } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { FAQ } from '@/type';
+import { FAQ } from '@/lib/type';
 
-interface DialogsProps {
+interface DialogsProps
+{
     showFeedbackConfirmation: boolean;
     setShowFeedbackConfirmation: (show: boolean) => void;
     isLiveChatOpen: boolean;

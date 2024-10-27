@@ -2,7 +2,7 @@ import { DollarSign, Clock } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { FormDataType, LoanType } from '@/type';
+import { FormDataType, LoanType } from '@/lib/type';
 import { calculateMonthlyPayment } from '@/utils/calculations';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 

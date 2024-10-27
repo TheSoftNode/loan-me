@@ -22,6 +22,7 @@ export async function withAuth(
     {
         const authHeader = request.headers.get('authorization');
         const token = authHeader?.split('Bearer ')[1];
+        console.log(token)
 
         if (!token)
         {

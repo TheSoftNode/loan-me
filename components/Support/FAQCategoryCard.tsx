@@ -13,7 +13,7 @@ import
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { FAQ, FAQCategory } from '@/type';
+import { FAQ, FAQCategory } from '@/lib/type';
 
 interface FAQCategoryCardProps
 {

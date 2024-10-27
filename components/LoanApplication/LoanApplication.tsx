@@ -10,7 +10,7 @@ import
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { FormDataType, LoanType } from '@/type';
+import { FormDataType, LoanType } from '@/lib/type';
 import { useToast } from '@/hooks/use-toast';
 import { ProgressTracker } from './ProgressTracker';
 import { LoanCard } from './LoanCard';

@@ -347,7 +347,7 @@ const LoginPage: React.FC = () =>
                             href="/Register"
                             className="w-full flex items-center justify-center text-slate-600 hover:text-teal-600 transition-colors mt-4"
                         >
-                            Don't have an account?
+                            Don&apos;t have an account?
                             <span className="text-teal-500 ml-1">Sign up</span>
                         </Link>
                     </form>

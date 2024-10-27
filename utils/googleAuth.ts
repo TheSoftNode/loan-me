@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/au
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { uploadProfilePhoto } from './photoUpload';
 import { auth, db } from '@/services/firebaseConfig';
-import { User } from '@/type';
+import { User } from '@/lib/type';
 import toast from 'react-hot-toast';
 
 interface GoogleAuthResponse

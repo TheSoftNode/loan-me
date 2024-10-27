@@ -63,4 +63,18 @@ export interface User
     authMethods: string[]; // ['google', 'password', etc.]
     createdAt: Date | string;
     lastLogin: Date | string;
+    acceptedTerms?: boolean;
+}
+
+export interface UserProfile
+{
+    firstName: string;
+    lastName: string;
+    email: string;
+    photoURL: string | null;
+    needsPasswordSetup: boolean;
+    authMethods: string[];
+    createdAt: string;
+    lastLogin: string;
+    acceptedTerms: boolean;
 }
