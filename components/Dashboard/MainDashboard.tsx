@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import
 {
@@ -18,6 +18,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from 'next/link';
+// import { useProtectedData } from '@/hooks/useProtectedData';
+// import toast from 'react-hot-toast';
 
 interface LoanData
 {
@@ -67,6 +69,30 @@ const MainDashboard: React.FC<DashboardProps> = ({
     notifications
 }) =>
 {
+
+    // const { fetchDashboardData, loading, error } = useProtectedData();
+    // const [dashboardData, setDashboardData] = useState(null);
+
+    // useEffect(() =>
+    // {
+    //     const loadDashboardData = async () =>
+    //     {
+    //         try
+    //         {
+    //             const data = await fetchDashboardData();
+    //             setDashboardData(data);
+    //         } catch (error)
+    //         {
+    //             toast.error('Failed to load dashboard data');
+    //         }
+    //     };
+
+    //     loadDashboardData();
+    // }, []);
+
+    // if (loading) return <div>Loading...</div>;
+    // if (error) return <div>Error: {error}</div>;
+
     // Calculate total outstanding balance
     const totalOutstanding = loans.reduce((sum, loan) =>
         loan.status === 'active' ? sum + loan.remainingBalance : sum, 0

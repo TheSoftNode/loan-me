@@ -1,79 +1,267 @@
 "use client"
 
-import React, { useState } from 'react';
-import { ArrowRight, Mail, Lock, Fingerprint } from 'lucide-react';
-import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa6';
+import React, { useState, FormEvent } from 'react';
+import { ArrowRight, Mail, Lock, Fingerprint, Eye, EyeOff } from 'lucide-react';
+import { FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
+import { googleLogin, passwordlessLogin } from '@/services/authentications/login';
+import { AuthStorage } from '@/utils/storage';
 
-
-
-interface SocialButtonProps
+interface LoginFormData
 {
-    Icon: React.ElementType;
-    label: string;
+    email: string;
+    password: string;
+    rememberMe: boolean;
+}
+
+interface FormErrors
+{
+    email?: string;
+    password?: string;
 }
 
 const LoginPage: React.FC = () =>
 {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState<LoginFormData>({
+        email: '',
+        password: '',
+        rememberMe: false
+    });
+    const [errors, setErrors] = useState<FormErrors>({});
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void =>
+    const validateEmail = (email: string) =>
     {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const validatePassword = (password: string) =>
+    {
+        return password.length >= 6; // Basic minimum length validation
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    {
+        const { name, value, type, checked } = e.target;
+        const inputValue = type === 'checkbox' ? checked : value;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: inputValue
+        }));
+
+        // Clear error when user starts typing
+        setErrors(prev => ({
+            ...prev,
+            [name]: undefined
+        }));
+    };
+
+    const validateForm = () =>
+    {
+        const newErrors: FormErrors = {};
+
+        if (!formData.email)
+        {
+            newErrors.email = 'Email is required';
+        } else if (!validateEmail(formData.email))
+        {
+            newErrors.email = 'Please enter a valid email address';
+        }
+
+        if (!formData.password)
+        {
+            newErrors.password = 'Password is required';
+        } else if (!validatePassword(formData.password))
+        {
+            newErrors.password = 'Password must be at least 6 characters';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleEmailPasswordLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
+    
+        if (!validateForm()) {
+            toast.error('Please fix the errors in the form');
+            return;
+        }
+    
         setIsLoading(true);
-        // Simulate API call
-        setTimeout(() => setIsLoading(false), 1000);
+    
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    method: 'emailPassword',
+                    email: formData.email,
+                    password: formData.password,
+                    rememberMe: formData.rememberMe
+                }),
+            });
+    
+            const data = await response.json();
+    
+            if (!response.ok) {
+                throw new Error(data.error || 'Invalid email or password');
+            }
+    
+            // Use the AuthStorage class to handle token storage
+            AuthStorage.saveToken(data.token, formData.rememberMe);
+            
+            toast.success('Successfully logged in!');
+            router.push('/Dashboard');
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'Failed to login');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleLogout = () => {
+        AuthStorage.clearToken();
+        toast.success('Logged out successfully');
+        router.push('/Login'); 
+    };
+
+    const handleGoogleLogin = async (): Promise<void> =>
+    {
+        setIsLoading(true);
+
+        try
+        {
+            const userCredential = await googleLogin();
+            const token = await userCredential.user.getIdToken();
+
+            localStorage.setItem('authToken', token);
+            toast.success('Successfully logged in with Google!');
+            router.push('/Dashboard');
+        } catch (error)
+        {
+            toast.error(error instanceof Error ? error.message : 'Failed to login with Google');
+        } finally
+        {
+            setIsLoading(false);
+        }
+    };
+
+    const handlePasswordlessLogin = async (): Promise<void> =>
+    {
+        if (!formData.email)
+        {
+            toast.error('Please enter your email first');
+            return;
+        }
+
+        if (!validateEmail(formData.email))
+        {
+            toast.error('Please enter a valid email address');
+            return;
+        }
+
+        setIsLoading(true);
+
+        try
+        {
+            await passwordlessLogin(formData.email);
+
+            toast.success('Login link sent to your email!');
+        } catch (error)
+        {
+            toast.error(error instanceof Error ? error.message : 'Failed to send login link');
+        } finally
+        {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br mt-6 from-cyan-500 via-teal-500 to-purple-600 flex items-center justify-center p-4">
+        <div className="min-h-screen pt-14 bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 flex items-center justify-center p-4">
+            <Toaster />
             <div className="w-full max-w-md">
-                <div className="bg-gradient-to-br from-white/20 to-purple-400/20 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-white/10">
-                    <h2 className="text-3xl font-bold text-white mb-6 text-center">Welcome Back</h2>
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-teal-100">
+                    <h2 className="text-3xl font-bold text-teal-600 mb-6 text-center">Welcome Back</h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleEmailPasswordLogin} className="space-y-4">
                         <div className="space-y-2">
-                            <label className="text-cyan-50 text-sm">Email</label>
+                            <label className="text-slate-600 text-sm font-medium">Email</label>
                             <div className="relative">
                                 <input
                                     type="email"
-                                    className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 pl-10 text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 pl-10 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
                                     placeholder="Enter your email"
                                 />
-                                <Mail className="absolute left-3 top-2.5 h-5 w-5 text-white/50" />
+                                <Mail className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
                             </div>
+                            {errors.email && (
+                                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                            )}
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-cyan-50 text-sm">Password</label>
+                            <label className="text-slate-600 text-sm font-medium">Password</label>
                             <div className="relative">
                                 <input
-                                    type="password"
-                                    className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 pl-10 text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 pl-10 pr-10 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
                                     placeholder="Enter your password"
                                 />
-                                <Lock className="absolute left-3 top-2.5 h-5 w-5 text-white/50" />
+                                <Lock className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="h-5 w-5" />
+                                    ) : (
+                                        <Eye className="h-5 w-5" />
+                                    )}
+                                </button>
                             </div>
+                            {errors.password && (
+                                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                            )}
                         </div>
 
-                        {/* Biometric Login Option - Only shown on mobile */}
                         <button
                             type="button"
-                            className="w-full md:hidden bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white flex items-center justify-center gap-2 hover:bg-white/20 transition-colors"
+                            className="w-full md:hidden bg-teal-50 border border-teal-200 rounded-lg px-4 py-2 text-teal-700 flex items-center justify-center gap-2 hover:bg-teal-100 transition-colors"
+                            onClick={handlePasswordlessLogin}
                         >
                             <Fingerprint className="h-5 w-5" />
-                            Use Biometric Login
+                            Use Passwordless Login
                         </button>
 
-                        <div className="flex items-center justify-between text-sm">
-                            <label className="flex items-center text-cyan-50">
-                                <input type="checkbox" className="mr-2" />
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center text-sm text-slate-600">
+                                <input
+                                    type="checkbox"
+                                    name="rememberMe"
+                                    checked={formData.rememberMe}
+                                    onChange={handleInputChange}
+                                    className="mr-2 rounded border-slate-300 text-teal-500 focus:ring-teal-400"
+                                />
                                 Remember me
                             </label>
                             <Link
-                                type="button"
-                                href={"/ResetPassword"}
-                                className="text-cyan-50 hover:text-white"
+                                href="/ResetPassword"
+                                className="text-sm text-teal-600 hover:text-teal-700 transition-colors"
                             >
                                 Forgot password?
                             </Link>
@@ -81,11 +269,11 @@ const LoginPage: React.FC = () =>
 
                         <button
                             type="submit"
-                            className="w-full bg-white text-teal-600 py-2 rounded-lg font-semibold hover:bg-cyan-50 transition-colors flex items-center justify-center"
+                            className="w-full bg-teal-500 text-white py-2 rounded-lg font-semibold hover:bg-teal-600 transition-colors flex items-center justify-center"
                             disabled={isLoading}
                         >
                             {isLoading ? (
-                                <div className="h-5 w-5 border-2 border-teal-600 border-t-transparent rounded-full animate-spin" />
+                                <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                             ) : (
                                 <>
                                     Sign In
@@ -96,35 +284,33 @@ const LoginPage: React.FC = () =>
 
                         <div className="relative my-6">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/20"></div>
+                                <div className="w-full border-t border-slate-200"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 text-cyan-50 bg-gradient-to-br from-cyan-500 via-teal-500 to-purple-600">
+                                <span className="px-2 text-slate-500 bg-white">
                                     Or continue with
                                 </span>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-3">
-                            {[
-                                { Icon: FaGoogle, label: 'Google' },
-                            ].map(({ Icon, label }: SocialButtonProps) => (
-                                <button
-                                    key={label}
-                                    type="button"
-                                    className="flex items-center justify-center py-2 px-4 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 transition-colors"
-                                >
-                                    <Icon className="h-5 w-5 text-white" />
-                                </button>
-                            ))}
+                            <button
+                                type="button"
+                                onClick={handleGoogleLogin}
+                                className="flex items-center justify-center py-2 px-4 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors gap-2"
+                                disabled={isLoading}
+                            >
+                                <FaGoogle className="h-5 w-5 text-slate-600" />
+                                <span className="text-slate-600">Continue with Google</span>
+                            </button>
                         </div>
 
                         <Link
-                            href={"/Register"}
-                            type="button"
-                            className="w-full flex items-center justify-center text-cyan-50 hover:text-white mt-4"
+                            href="/Register"
+                            className="w-full flex items-center justify-center text-slate-600 hover:text-teal-600 transition-colors mt-4"
                         >
-                            Don&apos;t have an account? Sign up
+                            Don't have an account?
+                            <span className="text-teal-500 ml-1">Sign up</span>
                         </Link>
                     </form>
                 </div>

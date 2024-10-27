@@ -13,6 +13,13 @@ const dashboardData = {
     notifications: []
 };
 
+// import { withAuth } from '@/components/withAuth';
+// import Dashboard from '@/components/Dashboard';
+
+// const DashboardPage = () => <Dashboard />;
+
+// export default withAuth(DashboardPage);
+
 const page = () =>
 {
     return (
