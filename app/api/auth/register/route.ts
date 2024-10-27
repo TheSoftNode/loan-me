@@ -8,14 +8,23 @@ interface RegisterRequestBody
     email: string;
     password: string;
     acceptedTerms: boolean;
+    photoURL?: string | null;
 }
+
 
 export async function POST(req: NextRequest): Promise<NextResponse>
 {
     try
     {
         const body = await req.json() as RegisterRequestBody;
-        const { firstName, lastName, email, password, acceptedTerms } = body;
+        const {
+            firstName,
+            lastName,
+            email,
+            password,
+            acceptedTerms,
+            photoURL
+        } = body;
 
         if (!firstName || !lastName || !email || !password)
         {
@@ -31,10 +40,20 @@ export async function POST(req: NextRequest): Promise<NextResponse>
             email,
             password,
             acceptedTerms,
+            photoURL
         });
 
+
         return NextResponse.json(
-            { message: "User registered successfully", uid: user.uid },
+            {
+                message: "User registered successfully",
+                uid: user.uid,
+                user: {
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                }
+            },
             { status: 201 }
         );
     } catch (error)

@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { googleLogin, passwordlessLogin } from '@/services/authentications/login';
 import { AuthStorage } from '@/utils/storage';
+import { handleGoogleLogin } from '@/utils/googleAuth';
+import { PasswordSetupModal } from '@/components/Password/PasswordSetupModal';
 
 interface LoginFormData
 {
@@ -25,8 +27,10 @@ interface FormErrors
 const LoginPage: React.FC = () =>
 {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
+    const [showPasswordSetup, setShowPasswordSetup] = useState(false);
     const [formData, setFormData] = useState<LoginFormData>({
         email: '',
         password: '',
@@ -85,17 +89,20 @@ const LoginPage: React.FC = () =>
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleEmailPasswordLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    const handleEmailPasswordLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> =>
+    {
         e.preventDefault();
-    
-        if (!validateForm()) {
+
+        if (!validateForm())
+        {
             toast.error('Please fix the errors in the form');
             return;
         }
-    
+
         setIsLoading(true);
-    
-        try {
+
+        try
+        {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -108,49 +115,64 @@ const LoginPage: React.FC = () =>
                     rememberMe: formData.rememberMe
                 }),
             });
-    
+
             const data = await response.json();
-    
-            if (!response.ok) {
+
+            if (!response.ok)
+            {
                 throw new Error(data.error || 'Invalid email or password');
             }
-    
+
             // Use the AuthStorage class to handle token storage
             AuthStorage.saveToken(data.token, formData.rememberMe);
-            
+
             toast.success('Successfully logged in!');
             router.push('/Dashboard');
-        } catch (error) {
+        } catch (error)
+        {
             toast.error(error instanceof Error ? error.message : 'Failed to login');
-        } finally {
+        } finally
+        {
             setIsLoading(false);
         }
     };
 
-    const handleLogout = () => {
+    const handleLogout = () =>
+    {
         AuthStorage.clearToken();
         toast.success('Logged out successfully');
-        router.push('/Login'); 
+        router.push('/Login');
     };
 
-    const handleGoogleLogin = async (): Promise<void> =>
+    const onGoogleSignIn = async () =>
     {
-        setIsLoading(true);
+        setIsGoogleLoading(true);
 
         try
         {
-            const userCredential = await googleLogin();
-            const token = await userCredential.user.getIdToken();
+            const response = await handleGoogleLogin();
 
-            localStorage.setItem('authToken', token);
-            toast.success('Successfully logged in with Google!');
-            router.push('/Dashboard');
+            if (response.needsPasswordSetup)
+            {
+                setShowPasswordSetup(true);
+                toast.custom(<div className='text-orange-500 bg-teal-50 p-2 rounded-lg'>Please set up a password for additional sign-in options</div>);
+            } else
+            {
+                if (response.isNewUser)
+                {
+                    toast.success(`Welcome ${response.user.firstName}!`);
+                } else
+                {
+                    toast.success(`Welcome back, ${response.user.firstName}!`);
+                }
+                router.push('/Dashboard');
+            }
         } catch (error)
         {
             toast.error(error instanceof Error ? error.message : 'Failed to login with Google');
         } finally
         {
-            setIsLoading(false);
+            setIsGoogleLoading(false);
         }
     };
 
@@ -168,7 +190,7 @@ const LoginPage: React.FC = () =>
             return;
         }
 
-        setIsLoading(true);
+        setIsGoogleLoading(true);
 
         try
         {
@@ -180,7 +202,7 @@ const LoginPage: React.FC = () =>
             toast.error(error instanceof Error ? error.message : 'Failed to send login link');
         } finally
         {
-            setIsLoading(false);
+            setIsGoogleLoading(false);
         }
     };
 
@@ -296,13 +318,29 @@ const LoginPage: React.FC = () =>
                         <div className="grid grid-cols-1 gap-3">
                             <button
                                 type="button"
-                                onClick={handleGoogleLogin}
+                                onClick={onGoogleSignIn}
                                 className="flex items-center justify-center py-2 px-4 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors gap-2"
-                                disabled={isLoading}
+                                disabled={isGoogleLoading}
                             >
-                                <FaGoogle className="h-5 w-5 text-slate-600" />
-                                <span className="text-slate-600">Continue with Google</span>
+                                {isGoogleLoading ? (
+                                    <div className="h-5 w-5 border-2 border-teal-400 border-t-transparent rounded-full animate-spin" />
+                                ) : (
+                                    <>
+                                        <FaGoogle className="h-5 w-5 text-teal-600" />
+                                        <span className="text-slate-600">Continue with Google</span>
+                                    </>
+                                )}
                             </button>
+
+                            <PasswordSetupModal
+                                isOpen={showPasswordSetup}
+                                onClose={() => setShowPasswordSetup(false)}
+                                onSuccess={() =>
+                                {
+                                    toast.success('Password setup successful!');
+                                    router.push('/Dashboard');
+                                }}
+                            />
                         </div>
 
                         <Link

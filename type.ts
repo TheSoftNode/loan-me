@@ -50,3 +50,17 @@ export interface FeedbackFormData
     category: string;
     comment: string;
 }
+
+
+export interface User
+{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password?: string;
+    photoURL?: string | null;
+    needsPasswordSetup?: boolean;
+    authMethods: string[]; // ['google', 'password', etc.]
+    createdAt: Date | string;
+    lastLogin: Date | string;
+}
